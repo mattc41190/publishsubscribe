@@ -8,15 +8,28 @@ function addElement (content) {
   messageContainer.appendChild(newDiv);
 }
 
+var addMessageBtn =  document.getElementById('messageSender');
+
+addMessageBtn.addEventListener('click', function(){
+  pubsub.publish( "outbox/sentMessage", "hello world!" );
+
+});
+
 var messageLogger = function ( topics, data ) {
     addElement( "Logging: " + topics + ": " + data );
     console.log( "Logging: " + topics + ": " + data );
 };
 
+var sentConfirmator = function(topics, data){
+  addElement( "Sent Message: " + topics + ": " + data );
+  console.log( "Sent Message: " + topics + ": " + data );
+};
+
 // Subscribers listen for topics they have subscribed to and
 // invoke a callback function (e.g messageLogger) once a new
 // notification is broadcast on that topic
-var subscription = pubsub.subscribe( "inbox/newMessage", messageLogger );
+var newMessageSubscription = pubsub.subscribe( "inbox/newMessage", messageLogger );
+var sentMessageSubscription =  pubsub.subscribe("outbox/sentMessage", sentConfirmator);
 
 // Publishers are in charge of publishing topics or notifications of
 // interest to the application. e.g:
@@ -32,9 +45,11 @@ pubsub.publish( "inbox/newMessage", {
   body: "Hey again!"
 });
 
+pubsub.publish("outbox/sentMessage", "A message containing information");
+
 // We can also unsubscribe if we no longer wish for our subscribers
 // to be notified
-pubsub.unsubscribe( subscription );
+pubsub.unsubscribe( newMessageSubscription );
 
 // Once unsubscribed, this for example won't result in our
 // messageLogger being executed as the subscriber is
