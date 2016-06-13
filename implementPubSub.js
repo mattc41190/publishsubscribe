@@ -9,9 +9,11 @@ function addElement (content) {
 }
 
 var addMessageBtn =  document.getElementById('messageSender');
+var messageBody =  document.getElementById('messageBody');
 
 addMessageBtn.addEventListener('click', function(){
-  pubsub.publish( "outbox/sentMessage", "hello world!" );
+  var message = messageBody.value;
+  pubsub.publish( "outbox/sentMessage", message);
 
 });
 

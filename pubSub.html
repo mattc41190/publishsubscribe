@@ -4,12 +4,23 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-OiWEn8WwtH+084y4yW2YhhH6z/qTSecHZuk/eiWtnvLtU+Z8lpDsmhOKkex6YARr" crossorigin="anonymous">
 </head>
 <body>
-  <center><h1>Welcome to the Show</h1></center>
-  <center>
-    <div id="messageContainer"></div>
-  </center>
-  <!-- <textarea></textarea> -->
-  <button id="messageSender" value="New Entry">New Entry</button>
+  <div class="container">
+    <div class="row">
+      <div id="column-1" class="col-md-6">
+        <h1>New Message</h1>
+        <div class="form-group">
+          <label for="messageBody">Message:</label>
+          <textarea id="messageBody" class="form-control" rows="5"></textarea>
+          </br>
+          <button class="btn btn-primary" id="messageSender" value="New Entry">New Entry</button>
+        </div>
+      </div> <!--column-1-->
+      <div id="column-2" class="col-md-6">
+        <h1>Log:</h1>
+        <div id="messageContainer"></div>
+    </div> <!--column-2-->
+    </div> <!--row -->
+  </div> <!--  container -->
 </body>
 <script src="pubSubNative.js"></script>
 <script src="implementPubSub.js"></script>
